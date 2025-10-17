@@ -39,7 +39,7 @@ RapidOCR rapidOCR = RapidOCR.create(ocrConfig);
 <dependency>
     <groupId>io.github.hzkitty</groupId>
     <artifactId>rapidocr4j</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 使用示例
@@ -47,7 +47,6 @@ RapidOCR rapidOCR = RapidOCR.create(ocrConfig);
 RapidOCR rapidOCR = RapidOCR.create();
 OcrResult ocrResult = rapidOCR.run("src/test/resources/text_01.png");
 ```
-> ⚠️ 注意：1.0.0 版本，图片中文路径问题支持。见 [#2](https://github.com/hzkitty/RapidOCR4j/issues/2)
 
 如果想要使用GPU, `onnxruntime_gpu` 对应版本可以在这里找到
 [here](https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html).
@@ -55,7 +54,7 @@ OcrResult ocrResult = rapidOCR.run("src/test/resources/text_01.png");
 <dependency>
     <groupId>io.github.hzkitty</groupId>
     <artifactId>rapidocr4j</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <exclusions>
       <exclusion>
         <groupId>com.microsoft.onnxruntime</groupId>
