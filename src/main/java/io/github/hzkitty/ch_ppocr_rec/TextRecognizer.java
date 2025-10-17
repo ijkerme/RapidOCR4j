@@ -22,11 +22,6 @@ public class TextRecognizer {
     private final int recBatchNum;         // 识别批处理大小
     private final int[] recImageShape;     // 识别输入形状 (如 [3, 32, 320])
 
-    /**
-     * 构造方法
-     *
-     * @param recConfig 配置字典，包含模型和识别参数
-     */
     public TextRecognizer(OcrConfig.RecConfig recConfig) {
         // 初始化推理会话
         OrtInferConfig ortInferConfig = new OrtInferConfig();
@@ -169,7 +164,7 @@ public class TextRecognizer {
     public float[][][] resizeNormImg(Mat imgMat, float maxWhRatio) {
         int imgChannel = recImageShape[0];
         int imgHeight = recImageShape[1];
-//        int imgWidth = recImageShape[2];
+        // int imgWidth = recImageShape[2];
 
         // 确保输入图像的通道数与预期一致
         if (imgMat.channels() != imgChannel) {

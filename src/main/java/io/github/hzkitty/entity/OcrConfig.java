@@ -23,7 +23,6 @@ public class OcrConfig {
         public float widthHeightRatio = 8; // 宽高比
         public int maxSideLen = 2000; // 最大边长
         public int minSideLen = 30; // 最小边长
-        public boolean returnWordBox = false; // 是否返回单词级别的框
         public int intraOpNumThreads = -1; // 单线程操作线程数
         public int interOpNumThreads = -1; // 多线程操作线程数
 

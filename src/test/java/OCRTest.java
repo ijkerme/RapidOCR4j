@@ -22,7 +22,10 @@ public class OCRTest {
         RapidOCR rapidOCR = RapidOCR.create();
         File file = new File("src/test/resources/text_01.png");
         String imgContent = file.getAbsolutePath();
-        OcrResult ocrResult = rapidOCR.run(imgContent);
+        ParamConfig paramConfig = new ParamConfig();
+        paramConfig.setReturnWordBox(true);
+        paramConfig.setReturnWordLevel(true);
+        OcrResult ocrResult = rapidOCR.run(imgContent, paramConfig);
         Assertions.assertFalse(ocrResult.getRecRes().isEmpty());
         System.out.println(ocrResult);
     }

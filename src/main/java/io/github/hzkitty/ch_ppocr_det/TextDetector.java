@@ -22,7 +22,7 @@ public class TextDetector {
     private final OrtInferSession infer;         // ONNX 推理会话
 
     /**
-     * 构造函数，初始化预处理、后处理和推理模块。
+     * 初始化预处理、后处理和推理模块。
      *
      * @param detConfig 配置项
      */
@@ -88,7 +88,7 @@ public class TextDetector {
 
         // resultBundle 里包含 (boxes, scores)
         List<Point[]> dtBoxes = resultBundle.getBoxes();
-//        List<Float> dtScores = resultBundle.getScores();
+        //  List<Float> dtScores = resultBundle.getScores();
 
         // 过滤文本框
         List<Point[]> filtered = filterTagDetRes(dtBoxes, new int[]{oriHeight, oriWidth});

@@ -33,7 +33,7 @@ public class TextClassifier {
     private final OrtInferSession inferSession;
 
     /**
-     * 构造函数：从 OCRConfig 中读取分类相关的配置，并进行初始化。
+     * 从 OCRConfig 中读取分类相关的配置，并进行初始化。
      *
      * @param clsConfig OCRConfig，其中包含了分类模块 ClsConfig 的相关配置
      */

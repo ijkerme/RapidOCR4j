@@ -74,6 +74,8 @@ OcrResult ocrResult = rapidOCR.run("src/test/resources/text_01.png");
 
 [OcrConfig想更深入了解，请移步config.yaml参数解释](https://rapidai.github.io/RapidOCRDocs/install_usage/api/RapidOCR/)
 
+新增 **returnWordLevel** 参数，支持返回英语单字坐标(false)/单词(true)坐标
+
 >  安卓版本。使用 [RapidOCR4j-Android](https://github.com/hzkitty/RapidOCR4j-Android)
 
 
@@ -82,4 +84,4 @@ OcrResult ocrResult = rapidOCR.run("src/test/resources/text_01.png");
 - [RapidOCR](https://github.com/RapidAI/RapidOCR)
 
 ## 开源许可
-使用 [Apache License 2.0](https://github.com/MyMonsterCat/DeviceTouch/blob/main/LICENSE)
+使用 [Apache License 2.0](LICENSE)

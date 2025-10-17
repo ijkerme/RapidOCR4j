@@ -8,12 +8,11 @@ import java.util.List;
 public class ClsPostProcess {
     private String[] labelList;
 
-    // 构造函数，初始化标签列表
     public ClsPostProcess(String[] labelList) {
         this.labelList = labelList;
     }
 
-    // 调用方法，处理预测结果，返回标签和概率的配对列表
+    // 处理预测结果，返回标签和概率的配对列表
     public List<Pair<String, Float>> call(float[][] preds) {
         List<Pair<String, Float>> decodeOut = new ArrayList<>();
         for (int i = 0; i < preds.length; i++) {

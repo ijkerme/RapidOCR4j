@@ -17,7 +17,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class RapidOCR {
-    private final boolean printVerbose;
     private final float textScore;          // 过滤阈值
     private final int minHeight;            // 最小高度
     private final float widthHeightRatio;   // 宽高比
@@ -55,7 +54,6 @@ public class RapidOCR {
             OpencvLoader.loadOpencvLib();
         }
         OcrConfig.GlobalConfig globalConfig = config.getGlobal();
-        this.printVerbose = globalConfig.isPrintVerbose();
         this.textScore = globalConfig.getTextScore();
         this.minHeight = globalConfig.getMinHeight();
         this.widthHeightRatio = globalConfig.getWidthHeightRatio();
@@ -132,8 +130,8 @@ public class RapidOCR {
         boolean realUseCls = (paramConfig.getUseCls() == null) ? this.useCls : paramConfig.getUseCls();
         boolean realUseRec = (paramConfig.getUseRec() == null) ? this.useRec : paramConfig.getUseRec();
 
-        float realTextScore = (paramConfig.getTextScore() == null) ? this.textScore : paramConfig.getTextScore();
         boolean returnWordBox = paramConfig.getReturnWordBox() != null && paramConfig.getReturnWordBox();
+        boolean returnWordLevel = paramConfig.getReturnWordLevel() != null && paramConfig.getReturnWordLevel();
 
         if (paramConfig.getBoxThresh() != null) {
             textDet.postprocessOp.boxThresh = paramConfig.getBoxThresh();
@@ -210,7 +208,7 @@ public class RapidOCR {
         // ========== 后处理：计算 word-level boxes（可选） ==========
         if (dtBoxes != null && recRes != null && returnWordBox) {
             // 调用 calRecBoxes
-            recRes = calRecBoxes.call(imgList, dtBoxes, recRes);
+            recRes = calRecBoxes.call(imgList, dtBoxes, recRes, returnWordLevel);
 
             // 接下来需要把坐标映射回原图 (根据预处理记录 + Padding 记录)
             for (TupleResult recResi : recRes) {

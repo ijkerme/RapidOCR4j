@@ -30,7 +30,6 @@ public class DBPostProcess {
     private Mat dilationKernel = null;
 
     /**
-     * 构造函数
      * @param thresh         二值化阈值
      * @param boxThresh      最低得分阈值
      * @param maxCandidates  最大候选框数
@@ -52,7 +51,7 @@ public class DBPostProcess {
     }
 
     /**
-     * 后处理主入口，对预测输出做阈值化、膨胀、找轮廓、生成检测框等
+     * 对预测输出做阈值化、膨胀、找轮廓、生成检测框等
      *
      * @param pred      模型输出预测，形状 [N, 1, H, W]，此处只处理 N=1 的情况
      * @param oriHeight 原始图像高度

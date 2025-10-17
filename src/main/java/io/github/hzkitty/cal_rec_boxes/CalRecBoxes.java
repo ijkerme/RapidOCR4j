@@ -19,14 +19,14 @@ import java.util.List;
 public class CalRecBoxes {
 
     /**
-     * 主入口：根据输入的图像、检测框以及OCR的识别结果，计算每行文字对应的子字符/单词坐标
+     * 根据输入的图像、检测框以及OCR的识别结果，计算每行文字对应的子字符/单词坐标
      *
      * @param imgs    原图列表
      * @param dtBoxes 对应的检测框列表，每个元素是一个长度为4的Point[]，顺序：左上、右上、右下、左下
      * @param recRes  OCR识别结果，每个元素封装在 TupleResult 中
      * @return 返回新的TupleResult列表，每个元素里可包含最终计算后的字符/单词坐标等信息
      */
-    public List<TupleResult> call(List<Mat> imgs, List<Point[]> dtBoxes, List<TupleResult> recRes) {
+    public List<TupleResult> call(List<Mat> imgs, List<Point[]> dtBoxes, List<TupleResult> recRes, boolean returnWordLevel) {
         List<TupleResult> results = new ArrayList<>();
 
         for (int i = 0; i < imgs.size(); i++) {
@@ -53,7 +53,7 @@ public class CalRecBoxes {
             imgBox[3] = new Point(0, h);
 
             // 4. 计算单词（或单字）坐标框
-            WordBoxResult boxResult = calOcrWordBox(recTxt, imgBox, recWordInfo);
+            WordBoxResult boxResult = calOcrWordBox(recTxt, imgBox, recWordInfo, returnWordLevel);
 
             // 5. 调整坐标框(去除重叠)
             List<Point[]> adjustedBoxList = adjustBoxOverlap(boxResult.getSortedWordBoxList());
@@ -98,8 +98,9 @@ public class CalRecBoxes {
      * @param recTxt      识别文本
      * @param box         对应整块文本的矩形(4点)
      * @param recWordInfo 其中存储列数、字/词列表、每个字/词对应的列索引等
+     * @param returnWordLevel 若为true，则返回单词级别的坐标框，否则返回字母级别
      */
-    private WordBoxResult calOcrWordBox(String recTxt, Point[] box, WordBoxInfo recWordInfo) {
+    private WordBoxResult calOcrWordBox(String recTxt, Point[] box, WordBoxInfo recWordInfo, boolean returnWordLevel) {
         //  col_num, word_list, word_col_list, state_list, conf_list = rec_word_info
         double colNum = recWordInfo.getTextIndexLen();  // 列数
         List<List<String>> wordList = recWordInfo.getWordList();
@@ -118,6 +119,31 @@ public class CalRecBoxes {
         List<Point[]> wordBoxList = new ArrayList<>();
         List<String> wordBoxContentList = new ArrayList<>();
 
+        // 1️⃣ 如果要求返回单词级别
+        if (returnWordLevel) {
+            for (int i = 0; i < wordList.size(); i++) {
+                List<String> word = wordList.get(i);
+                List<Integer> wordCol = wordColList.get(i);
+
+                if (wordCol.isEmpty()) continue;
+
+                double startX = bboxXStart + wordCol.get(0) * cellWidth;
+                double endX = bboxXStart + (wordCol.get(wordCol.size() - 1) + 1) * cellWidth;
+
+                Point[] cell = new Point[]{
+                        new Point(startX, bboxYStart),
+                        new Point(endX, bboxYStart),
+                        new Point(endX, bboxYEnd),
+                        new Point(startX, bboxYEnd)
+                };
+                wordBoxList.add(cell);
+                wordBoxContentList.add(String.join("", word));
+            }
+
+            return new WordBoxResult(wordBoxContentList, wordBoxList, confList);
+        }
+
+        // 2️⃣ 否则走原有的单字/字母级别逻辑
         // 用来统计平均字符宽度的容器
         List<Double> cnWidthList = new ArrayList<>();
         List<Double> enWidthList = new ArrayList<>();
