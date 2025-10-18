@@ -18,7 +18,6 @@ public class OcrConfig {
         public boolean useDet = true; // 是否使用检测模块
         public boolean useCls = true; // 是否使用分类模块
         public boolean useRec = true; // 是否使用识别模块
-        public boolean printVerbose = false; // 是否打印详细信息
         public int minHeight = 30; // 最小高度
         public float widthHeightRatio = 8; // 宽高比
         public int maxSideLen = 2000; // 最大边长
