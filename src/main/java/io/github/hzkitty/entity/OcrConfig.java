@@ -36,7 +36,7 @@ public class OcrConfig {
         public boolean useCuda = false; // 是否使用 CUDA
         public int deviceId = 0; // 显卡编号
         public boolean useDml = false; // 是否使用 DML
-        public String modelPath = "models/ch_PP-OCRv4_det_infer.onnx"; // 模型路径
+        public String modelPath = "models/PP-OCRv6_det_tiny.onnx"; // 模型路径
         public int limitSideLen = 736; // 限制边长
         public String limitType = "min"; // 限制类型
         public float thresh = 0.3f; // 检测阈值
@@ -72,7 +72,7 @@ public class OcrConfig {
         public boolean useCuda = false; // 是否使用 CUDA
         public int deviceId = 0; // 显卡编号
         public boolean useDml = false; // 是否使用 DML
-        public String modelPath = "models/ch_PP-OCRv4_rec_infer.onnx"; // 模型路径
+        public String modelPath = "models/PP-OCRv6_rec_tiny.onnx"; // 模型路径
         public int[] recImgShape = {3, 48, 320}; // 识别输入图像形状
         public int recBatchNum = 1; // 识别批量处理数
         public boolean useArena = false; // arena内存池的扩展策略（速度有提升，但内存会剧增，且持续占用，不释放，默认关闭）
