@@ -1,5 +1,6 @@
 import io.github.hzkitty.RapidOCR;
 import io.github.hzkitty.entity.*;
+import io.github.hzkitty.utils.OpencvLoader;
 import io.github.hzkitty.utils.VisRes;
 import io.github.hzkitty.utils.WordBoxMerger;
 import org.junit.jupiter.api.Assertions;
@@ -15,9 +16,9 @@ import java.util.List;
 
 public class OCRTest {
 
-//    static {
-//        nu.pattern.OpenCV.loadShared();
-//    }
+    static {
+        OpencvLoader.loaded = true;
+    }
 
     @Test
     public void testPath() throws Exception {
