@@ -14,7 +14,7 @@ public class OpencvLoader {
      * 是否已经加载过原生库的标志位
      * 使用 volatile 修饰，保证线程可见性
      */
-    private static volatile boolean loaded = false;
+    public static volatile boolean loaded = false;
 
     /**
      * 用于多线程并发时的锁对象
